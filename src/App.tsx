@@ -128,7 +128,14 @@ function App() {
         </div>
       </header>
       <main>
-        <h1>Main</h1>
+        <div className="mensage_container">
+            <div className="box">
+              Cecília - 9:05
+            </div>
+            <div className="paragraph">
+              Bom dia!!!!
+            </div>
+        </div>
       </main>
       <footer>
         <div>
