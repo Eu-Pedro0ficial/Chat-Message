@@ -1,4 +1,3 @@
-
 *{
   margin: 0;
   padding: 0;
@@ -9,3 +8,14 @@ body {
   background-color: #1A1924;
 }
 
+::-webkit-scrollbar {
+ 
+  width: 10px;
+  background-color: #1A1924;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: #282843;
+  border-radius: 999px;
+}
