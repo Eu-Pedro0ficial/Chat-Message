@@ -3,6 +3,7 @@ import { Message } from "./components/Message";
 import { Datetime } from "./components/Datetime";
 import { UserInformations } from "./components/UserInformations";
 import { TextInput } from "./components/TextInput";
+import { useContextMessage } from "./context/useMessage";
 
 
 const MainComponents = styled.main`
@@ -27,13 +28,16 @@ const MainComponents = styled.main`
 
 function App() {
 
+  const { data } = useContextMessage();
+
   return (
-    <MainComponents >
+    <MainComponents>
       <UserInformations />
-      <main> 
+      <main>
         <Datetime />
-        <Message content="Bom dia"/>
-        <Message content="Ola, Bom dia!!!" styled="user"/>
+        {data.message.length > 0 && 
+          data.message.map(messageProps => messageProps.message !== "" && <Message key={messageProps.message} content={messageProps.message} time={messageProps.time} styled={messageProps.user} />)
+        }
       </main>
       <TextInput />
     </MainComponents>

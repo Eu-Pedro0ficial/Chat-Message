@@ -1,7 +1,9 @@
 import { styled } from "styled-components";
 import ImageSend from "../assets/arrow.svg";
+import { useEffect, useState } from "react";
+import { useContextMessage } from "../context/useMessage";
 
-const FooterComponent = styled.footer `
+const FooterComponent = styled.footer`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,43 +11,95 @@ const FooterComponent = styled.footer `
   height: auto;
   background-color:rgb(97 93 133 / 10%);
   box-shadow: rgba(0, 0, 0, 0.24) 3px 0px 8px;
-  div {
+  form {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
-    position: relative;
-    width: 90%;
-    height: 50px;
+    width: 100%;
+    height: 100%;
 
-    input{
-      border: 0;
-      outline: 0;
-      background-color: #282843;
-      padding: 20px;
-      min-width: 230px;
-      width: 100%;
-      border-radius: 70px;
-      color: white;
-      font-size: 1.0rem;
-    }
+    .div {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
 
-    img {
-      position: absolute;
-      margin-right: 20px;
-      cursor: pointer;
+      width: 90%;
+      height: 50px;
+      input{
+        border: 0;
+        outline: 0;
+        background-color: #282843;
+        padding: 20px;
+        padding-right: 70px;
+        min-width: 230px;
+        width: 100%;
+        border-radius: 70px;
+        color: white;
+        font-size: 1.0rem;
+      }
+      button {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        border: none;
+        position: relative;
+        
+        img {
+        margin-right: 2rem;
+        object-fit: cover;
+          position: absolute;
+          cursor: pointer;
+        }
+      }
     }
   }
 
 `
 
-export function TextInput(){
+export function TextInput() {
+
+  const date = new Date;
+  const [input, setInput] = useState<string>("")
+  const [valueInput, setValue] = useState<string>()
+  const [objectMessage, setObjectMessage] = useState<any>({
+    message: "",
+    user: "",
+    time: ""
+  })
+  const { data } = useContextMessage()
+
+  function getHout(){
+    return date.getHours();
+  }
+
+  function getMinutes(){
+    return date.getMinutes();
+  }
+
+  
+  function handleSubmit(e : any) {
+    e.preventDefault()
+    setValue(input)
+    setObjectMessage({
+      message : input,
+      user: "user",
+      time: `${getHout()}:${getMinutes()}`
+    })
+  }
+  useEffect(() => {
+    data.setMessage([...data.message,objectMessage]);
+    setInput("")
+  }, [valueInput])
 
   return (
     <FooterComponent>
-      <div>
-        <input type="text" placeholder="Digite sua mensagem" />
-        <img src={ImageSend} alt="" />
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="div">
+          <input type="text" value={input || ""} onChange={(e: any) => setInput(e.target.value)} placeholder="Digite sua mensagem" />
+          <button type="submit"><img src={ImageSend} alt="" /></button>
+        </div>
+
+      </form>
     </FooterComponent>
   )
 
