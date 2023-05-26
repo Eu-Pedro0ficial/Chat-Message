@@ -21,6 +21,7 @@ const io = new socket_io_1.Server(server, {
 });
 io.on("connection", (socket) => {
     console.log("A client connected");
+    console.log(socket.handshake);
     socket.on("message", (data) => {
         console.log("Received message:", data);
         io.emit("message", data); // Envia a mensagem para todos os clientes conectados
