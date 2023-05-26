@@ -1,5 +1,8 @@
 import { styled } from "styled-components"
 import { connectionIo } from "../config/connection";
+import { useEffect, useState } from "react";
+import { userContentAuth } from "../context/userAuth";
+import { useNavigate } from "react-router-dom";
 
 
 const FormComponent = styled.div `
@@ -52,20 +55,48 @@ const FormComponent = styled.div `
 
 export default function Form(){
 
+  const { data, setAuth } = userContentAuth();
+
+  function getRandomId(){
+    return Math.floor(Math.random() * 100000);
+  }
+
+  const [inputName, setInputName] = useState('');
 
   function handleSubmit(e:any) {
     e.preventDefault();
+    const id = getRandomId()
 
+    const formValues = {
+      name: inputName,
+      id: `${id}`
+    }
 
+    connectionIo.emit("createUser", formValues);
+    setInputName('');
+
+    connectionIo.on('created User', (resp) => {
+      setAuth({
+        id: `${id}`,
+        isLogged: resp
+      })
+    })
   }
 
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(data.auth?.isLogged! === true){
+      navigate('/Chat');
+    }
+  }, [data.auth?.isLogged!])
 
   return (
     <FormComponent>
       <form onSubmit={handleSubmit}>
         <div className='input-group'>
           <label htmlFor="name">Nome</label>
-          <input type="text" name='name'  placeholder="digite seu nome"/>
+          <input type="text" name='name' value={inputName || ''} onChange={(e) => setInputName(e.target.value)}  placeholder="digite seu nome"/>
         </div>
           <input hidden type="text"  name='id' defaultValue={Math.random()} placeholder="digite seu nome"/>
         <button>Cadastrar</button>

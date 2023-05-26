@@ -23,7 +23,7 @@ io.on("connection", (socket: Socket) => {
 
   socket.on("createUser", (data: any) => {
     createUser(data);
-    io.emit("created User", "Usuario criado com sucesso");
+    io.emit("created User", true);
   });
 
   

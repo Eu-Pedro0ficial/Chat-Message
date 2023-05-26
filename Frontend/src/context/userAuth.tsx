@@ -3,7 +3,7 @@ import { ReactNode, SetStateAction, createContext, useContext, useState } from '
 export interface UserAuthProps {
 
     id: string;
-    name: string;
+    isLogged: boolean;
 }
 
 interface ContextMessageProps {
@@ -16,25 +16,25 @@ type UseContextAuthType = {
     setAuth: React.Dispatch<SetStateAction<UserAuthProps>>;
 };
 
-export const ContextMessage = createContext<UseContextAuthType>({
+export const Auth = createContext<UseContextAuthType>({
     data: {
         auth: {
             id: "",
-            name: "",
+            isLogged: false,
         },
 
     },
     setAuth: () => { }
 });
 
-export const ContextMessageProvider = ({ children }: { children: ReactNode }) => {
+export const UserAuthProvider = ({ children }: { children: ReactNode }) => {
     const [auth, setAuth] = useState<any>();
 
     return (
-        <ContextMessage.Provider value={{ data: { auth }, setAuth }}>
+        <Auth.Provider value={{ data: { auth }, setAuth }}>
             {children}
-        </ContextMessage.Provider>
+        </Auth.Provider>
     );
 };
 
-export const useContextMessage = () => useContext(ContextMessage)
+export const userContentAuth = () => useContext(Auth)

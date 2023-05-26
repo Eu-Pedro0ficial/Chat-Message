@@ -23,7 +23,7 @@ const io = new socket_io_1.Server(server, {
 io.on("connection", (socket) => {
     socket.on("createUser", (data) => {
         (0, databaseLoca_1.createUser)(data);
-        io.emit("created User", "Usuario criado com sucesso");
+        io.emit("created User", true);
     });
     socket.on("getUser", (data) => {
         const getUserFilter = (0, databaseLoca_1.getUser)(data);

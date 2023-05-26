@@ -1,10 +1,6 @@
 import { Idb } from "../interfaces/Idb";
 
-
-
 const db : Idb[] = []
-
-
 
 export const createUser = (user: any) => db.push(user)
 
