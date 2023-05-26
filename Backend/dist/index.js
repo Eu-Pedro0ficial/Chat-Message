@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const socket_io_1 = require("socket.io");
 const cors_1 = __importDefault(require("cors"));
+const databaseLoca_1 = require("./db/databaseLoca");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 const server = app.listen(3000, () => {
@@ -20,10 +21,19 @@ const io = new socket_io_1.Server(server, {
     },
 });
 io.on("connection", (socket) => {
-    console.log("A client connected");
-    socket.on("message", (data) => {
-        console.log("Received message:", data);
-        io.emit("message", data); // Envia a mensagem para todos os clientes conectados
+    console.log(socket.id);
+    socket.on("createUser", (data) => {
+        (0, databaseLoca_1.createUser)(data);
+        io.emit("createUser", "Usuario criado com sucesso");
+    });
+    socket.on("getUser", (data) => {
+        const getUserFilter = (0, databaseLoca_1.getUser)(data);
+        if (getUserFilter.length > 0) {
+            io.emit("getUser", getUserFilter);
+        }
+        return io.emit("getUser", "Usuario não encontrado");
+    });
+    socket.on("creatingRoomWithFilteredUser", (data) => {
     });
     socket.on("disconnect", () => {
         console.log("A client disconnected");
