@@ -1,4 +1,3 @@
-import { FastForwardCircle } from 'phosphor-react';
 import Chat from './components/Chat'
 import Form from "./components/Form"
 
