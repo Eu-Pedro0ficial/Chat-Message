@@ -4,6 +4,8 @@ import { Datetime } from "./components/Datetime";
 import { UserInformations } from "./components/UserInformations";
 import { TextInput } from "./components/TextInput";
 import { useContextMessage } from "./context/useMessage";
+import io from 'socket.io-client';
+import { useEffect } from "react";
 
 
 const MainComponents = styled.main`
@@ -30,12 +32,29 @@ function App() {
 
   const { data } = useContextMessage();
 
+
+
+  useEffect(() => {
+    const socket = io('http://localhost:3000'); // Substitua 'http://localhost:3000' pelo URL do seu servidor Socket.io
+
+    socket.on('connect', () => {
+      console.log('Connected to server');
+    });
+
+    socket.emit("message", "")
+
+    return () => {
+      socket.disconnect(); // Desconecta o socket ao desmontar o componente
+    };
+  }, []);
+
+
   return (
     <MainComponents>
       <UserInformations />
       <main>
         <Datetime />
-        {data.message.length > 0 && 
+        {data.message.length > 0 &&
           data.message.map(messageProps => messageProps.message !== "" && <Message key={messageProps.message} content={messageProps.message} time={messageProps.time} styled={messageProps.user} />)
         }
       </main>
