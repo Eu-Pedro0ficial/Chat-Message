@@ -2,8 +2,10 @@ import { ReactNode, SetStateAction, createContext, useContext, useState } from '
 
 export interface UserAuthProps {
 
+    name: string;
     id: string;
     isLogged: boolean;
+    password: string;
 }
 
 interface ContextMessageProps {
@@ -19,8 +21,10 @@ type UseContextAuthType = {
 export const Auth = createContext<UseContextAuthType>({
     data: {
         auth: {
+            name: "",
             id: "",
             isLogged: false,
+            password: ""
         },
 
     },

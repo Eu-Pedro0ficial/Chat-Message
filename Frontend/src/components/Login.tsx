@@ -1,11 +1,9 @@
-import { styled } from "styled-components"
-import { connectionIo } from "../config/connection";
 import { useState } from "react";
-import { userContentAuth } from "../context/userAuth";
+import { styled } from "styled-components";
+import { connectionIo } from "../config/connection";
 import { useNavigate } from "react-router-dom";
 
-
-const FormComponent = styled.div `
+const LoginComponent = styled.div `
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -75,47 +73,34 @@ const FormComponent = styled.div `
   }
 `;
 
-export default function Form(){
+export default function Login(){
 
-  const { setAuth } = userContentAuth();
-
-  function getRandomId(){
-    return Math.floor(Math.random() * 100000);
-  }
-
+  const navigate = useNavigate();
   const [inputName, setInputName] = useState('');
   const [inputPassword, setInputPassword] = useState('');
-  const navigate = useNavigate();
-
-  function handleSubmit(e:any) {
+  
+  function handleSubmit(e:any){
     e.preventDefault();
-    const id = getRandomId()
 
     const formData = {
       name: inputName,
-      id: `${id}`,
       password: inputPassword
     }
 
-    connectionIo.emit("createUser", formData);
-    setInputName('');
+    connectionIo.emit("getUser", formData)
 
-    connectionIo.on('created User', (resp) => {
-      setAuth({
-        name: inputName,
-        id: `${id}`,
-        isLogged: resp,
-        password: inputPassword
-      })
+    connectionIo.on("getUser", (data) => {
+      if(data){
+        localStorage.setItem("user", JSON.stringify({...formData, "isLogged": true}));
+        navigate('/Chat')
+      }
     })
-
-    localStorage.setItem("user", JSON.stringify({...formData, "isLogged": true}));
-    navigate('/Chat');
   }
 
   return (
-    <FormComponent>
-      <h1>Cadastre-se</h1>
+    <LoginComponent>
+      <h1>Login</h1>
+
       <form onSubmit={handleSubmit}>
         <div className='input-group'>
           <label htmlFor="name">Nome</label>
@@ -125,9 +110,8 @@ export default function Form(){
           <label htmlFor="password">Senha</label>
           <input type="password" name='password' value={inputPassword || ''} onChange={(e) => setInputPassword(e.target.value)}  placeholder="digite seu nome"/>
         </div>
-        <button>Cadastrar</button>
+        <button>Login</button>
       </form>
-    </FormComponent>
+    </LoginComponent>
   )
-
 }

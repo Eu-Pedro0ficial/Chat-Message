@@ -1,6 +1,7 @@
 import { styled } from "styled-components"
-import Close from "../assets/close.svg"
-import { UserCircle } from "phosphor-react"
+import { SignOut, UserCircle } from "phosphor-react"
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const HeaderComponent = styled.header`
   display: flex;
@@ -68,17 +69,15 @@ const HeaderComponent = styled.header`
         }
       }
     } 
-    .close {
+    .logOut {
       display: flex;
       justify-content: end;
       flex: 1;
-      img {
-        display: none;
-        width: 19px;
+      svg {
+        width: 2.5rem;
+        height: 2.5rem;
+        color: white;
         cursor: pointer;
-        @media (max-width: 450px) {
-          display: block;
-        }
       }
     }
     }
@@ -87,18 +86,33 @@ const HeaderComponent = styled.header`
 
 export function UserInformations() {
 
+  const navitage = useNavigate();
+  const [name, setName] = useState();
+
+  
+  useEffect(()=>{
+    const jsonFormData = localStorage.getItem('user');
+    const formData = JSON.parse(jsonFormData!)
+    setName(formData.name)
+  }, [])
+
+  function handleClick(){
+    localStorage.removeItem("user");
+    navitage('/Login');
+  }
+
   return (
     <HeaderComponent>
       <div className="header-container">
         <div className="informations">
           <UserCircle weight="fill" />
           <div className="names">
-            <span>Pedro Cardoso</span>
+            <span>{name}</span>
             <p><span />Online</p>
           </div>
         </div>
-        <div className="close">
-          <img src={Close} alt="" />
+        <div onClick={handleClick} className="logOut">
+          <SignOut />
         </div>
       </div>
     </HeaderComponent>

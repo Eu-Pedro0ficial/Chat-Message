@@ -25,21 +25,19 @@ io.on("connection", (socket: Socket) => {
     createUser(data);
     io.emit("created User", true);
   });
-
   
   socket.on("getUser", (data: any) => {
     const getUserFilter =  getUser(data);
-
-    if(getUserFilter.length > 0) {
-
-        io.emit("getUser", getUserFilter);
+    console.log(getUserFilter, data)
+    if(getUserFilter){
+      io.emit("getUser", getUserFilter);
+      return;
     }
-    return io.emit("get User","Usuario não encontrado")
+    return io.emit("getUser","Usuario não encontrado")
   });
 
   socket.on("creatingRoomWithFilteredUser",(data:any) => {
     socket.join(`${data.user.id}/${data.otherUser.id}`);
-
 
     io.emit("creted room with user", `${data.user.id}/${data.otherUser.id}`)
   })

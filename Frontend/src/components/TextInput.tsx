@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
-import ImageSend from "../assets/arrow.svg";
 import { useEffect, useState } from "react";
 import { useContextMessage } from "../context/useMessage";
+import { PaperPlaneRight } from "phosphor-react";
 
 const FooterComponent = styled.footer`
   display: flex;
@@ -43,11 +43,15 @@ const FooterComponent = styled.footer`
         align-items: center;
         border: none;
         position: relative;
-        
-        img {
-        margin-right: 2rem;
-        object-fit: cover;
+        background: none;
+
+        svg {
           position: absolute;
+          width: 2.0rem;
+          height: 2.0rem;
+          color: white;
+          margin-right: 2rem;
+          object-fit: cover;
           cursor: pointer;
         }
       }
@@ -98,7 +102,9 @@ export function TextInput() {
       <form onSubmit={handleSubmit}>
         <div className="div">
           <input type="text" value={input || ""} onChange={(e: any) => setInput(e.target.value)} placeholder="Digite sua mensagem" />
-          <button type="submit"><img src={ImageSend} alt="" /></button>
+          <button type="submit">
+            <PaperPlaneRight weight="fill" />
+          </button>
         </div>
 
       </form>

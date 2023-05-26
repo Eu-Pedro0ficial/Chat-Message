@@ -27,10 +27,12 @@ io.on("connection", (socket) => {
     });
     socket.on("getUser", (data) => {
         const getUserFilter = (0, databaseLoca_1.getUser)(data);
-        if (getUserFilter.length > 0) {
+        console.log(getUserFilter, data);
+        if (getUserFilter) {
             io.emit("getUser", getUserFilter);
+            return;
         }
-        return io.emit("get User", "Usuario não encontrado");
+        return io.emit("getUser", "Usuario não encontrado");
     });
     socket.on("creatingRoomWithFilteredUser", (data) => {
         socket.join(`${data.user.id}/${data.otherUser.id}`);
