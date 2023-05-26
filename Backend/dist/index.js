@@ -21,19 +21,20 @@ const io = new socket_io_1.Server(server, {
     },
 });
 io.on("connection", (socket) => {
-    console.log(socket.id);
     socket.on("createUser", (data) => {
         (0, databaseLoca_1.createUser)(data);
-        io.emit("createUser", "Usuario criado com sucesso");
+        io.emit("created User", "Usuario criado com sucesso");
     });
     socket.on("getUser", (data) => {
         const getUserFilter = (0, databaseLoca_1.getUser)(data);
         if (getUserFilter.length > 0) {
             io.emit("getUser", getUserFilter);
         }
-        return io.emit("getUser", "Usuario não encontrado");
+        return io.emit("get User", "Usuario não encontrado");
     });
     socket.on("creatingRoomWithFilteredUser", (data) => {
+        socket.join(`${data.user.id}/${data.otherUser.id}`);
+        io.emit("creted room with user", `${data.user.id}/${data.otherUser.id}`);
     });
     socket.on("disconnect", () => {
         console.log("A client disconnected");

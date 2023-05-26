@@ -2,7 +2,6 @@ import { styled } from "styled-components";
 import ImageSend from "../assets/arrow.svg";
 import { useEffect, useState } from "react";
 import { useContextMessage } from "../context/useMessage";
-import { io } from "socket.io-client";
 
 const FooterComponent = styled.footer`
   display: flex;
@@ -93,20 +92,7 @@ export function TextInput() {
     setInput("")
   }, [valueInput])
 
-  useEffect(() => {
-    const socket = io('http://localhost:3000'); // Substitua 'http://localhost:3000' pelo URL do seu servidor Socket.io
-
-    socket.on('connect', () => {
-      console.log('Connected to server');
-    });
-
-    socket.emit("message", "")
-
-    return () => {
-      socket.disconnect(); // Desconecta o socket ao desmontar o componente
-    };
-  }, []);
-
+ 
   return (
     <FooterComponent>
       <form onSubmit={handleSubmit}>

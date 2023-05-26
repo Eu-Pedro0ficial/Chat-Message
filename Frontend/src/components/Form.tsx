@@ -1,4 +1,6 @@
 import { styled } from "styled-components"
+import { connectionIo } from "../config/connection";
+
 
 const FormComponent = styled.div `
   width: 40%;
@@ -50,14 +52,22 @@ const FormComponent = styled.div `
 
 export default function Form(){
 
+
+  function handleSubmit(e:any) {
+    e.preventDefault();
+
+
+  }
+
+
   return (
     <FormComponent>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className='input-group'>
           <label htmlFor="name">Nome</label>
-          <input type="text" name='name' placeholder="digite seu nome"/>
+          <input type="text" name='name'  placeholder="digite seu nome"/>
         </div>
-          <input hidden type="text" name='id' defaultValue={Math.random()} placeholder="digite seu nome"/>
+          <input hidden type="text"  name='id' defaultValue={Math.random()} placeholder="digite seu nome"/>
         <button>Cadastrar</button>
       </form>
     </FormComponent>

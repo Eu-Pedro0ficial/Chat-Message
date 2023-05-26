@@ -26,7 +26,6 @@ io.on("connection", (socket: Socket) => {
     io.emit("created User", "Usuario criado com sucesso");
   });
 
-
   
   socket.on("getUser", (data: any) => {
     const getUserFilter =  getUser(data);
