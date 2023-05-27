@@ -43,11 +43,6 @@ const HeaderComponent = styled.header`
           line-height: 19px;
           color: #E1E1E6;
         
-          @media (max-width: 320px) {
-            width: 100%;
-            font-size: 10px;
-          }
-        
         }
 
         p {

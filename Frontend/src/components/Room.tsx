@@ -8,15 +8,15 @@ const MainComponents = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
+  width: 80%;
+  height: 100%;
 
   main {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     padding: 0.8rem 2rem;
-    width: 100vw;
+    width: 100%;
     height: 70%;
     overflow: auto;
     position: relative;
@@ -24,7 +24,7 @@ const MainComponents = styled.main`
   }
 `;
 
-export default function Chat(){
+export default function Room(){
   
   const { data } = useContextMessage();
 

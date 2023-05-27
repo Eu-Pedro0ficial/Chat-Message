@@ -1,7 +1,7 @@
 import { styled } from "styled-components"
-import { connectionIo } from "../config/connection";
+import { connectionIo } from "../../config/connection";
 import { useState } from "react";
-import { userContentAuth } from "../context/userAuth";
+import { userContentAuth } from "../../context/userAuth";
 import { useNavigate } from "react-router-dom";
 
 

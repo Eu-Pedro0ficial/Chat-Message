@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { styled } from "styled-components";
-import { connectionIo } from "../config/connection";
+import { connectionIo } from "../../config/connection";
 import { useNavigate } from "react-router-dom";
 
 const LoginComponent = styled.div `
