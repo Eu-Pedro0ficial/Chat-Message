@@ -103,6 +103,8 @@ export default function ListOfRooms(){
   const [users, setUsers] = useState<Idb[]>([]);
   const [filterUsers, setFilterUsers] = useState<Idb[]>([]);
   const [search, setSearch] = useState('');
+  const [otherUser, setOtherUser] = useState<Idb>();
+  const [userLoggedNow, setUserLoggedNow] = useState("");
   
   useEffect(()=>{
     connectionIo.emit("getUsers");
@@ -113,14 +115,23 @@ export default function ListOfRooms(){
 
   function handleChange(value: string){
     setSearch(value);
-
     const filteredUsers = users.filter((user) => user.name?.includes(value));
     setFilterUsers(filteredUsers);
-
   }
 
-  function handleClick(){
-    console.log('user');
+  function handleClick(e:any){
+    const userJson = localStorage.getItem('user');
+    const userLogged = userJson ? JSON.parse(userJson) : null;
+    setUserLoggedNow(userLogged);
+
+    const userNameContact = e.target.textContent;
+    users.map((user) => {
+      if(user.name === userNameContact){
+        setOtherUser(user)
+      }
+    });
+    
+    console.log(otherUser, userLoggedNow);
   }
 
   return (
@@ -161,5 +172,4 @@ export default function ListOfRooms(){
       </main>
     </ListComponent>
   )
-  
 }
