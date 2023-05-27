@@ -115,7 +115,7 @@ export default function Form(){
 
   return (
     <FormComponent>
-      <h1>Cadastre-se</h1>
+      <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <div className='input-group'>
           <label htmlFor="name">Nome</label>

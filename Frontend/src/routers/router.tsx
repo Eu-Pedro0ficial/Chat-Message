@@ -4,7 +4,7 @@ import {
 import Form from "../components/pages/Form";
 import Login from "../components/pages/Login";
 import isUserLoggedIn from "./middleware/isUserLoggedIn";
-import Home from "../components/Home";
+import Home from "../components/pages/Home";
 import Chat from "../components/pages/Chat";
 
 export default function Router(){
