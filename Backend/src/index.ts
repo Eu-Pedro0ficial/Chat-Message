@@ -1,7 +1,7 @@
 import express from "express";
 import { Server, Socket } from "socket.io";
 import cors from "cors";
-import { createUser, getUser } from "./db/databaseLoca";
+import { createUser, getUser, getUsers } from "./db/databaseLoca";
 
 const app = express();
 
@@ -25,10 +25,15 @@ io.on("connection", (socket: Socket) => {
     createUser(data);
     io.emit("created User", true);
   });
+
+  socket.on("getUsers", () => {
+    const getAllUsers = getUsers();
+    io.emit("getUsers", getAllUsers);
+  })
   
   socket.on("getUser", (data: any) => {
     const getUserFilter =  getUser(data);
-    console.log(getUserFilter, data)
+
     if(getUserFilter){
       io.emit("getUser", getUserFilter);
       return;

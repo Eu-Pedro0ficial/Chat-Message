@@ -10,7 +10,7 @@ const HeaderComponent = styled.header`
   flex: 2;
   padding: 0.5rem;
   
-  background-color: rgb(97 93 133 / 10%);
+  background-color: #211F2E;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   .header-container{
     display: flex;

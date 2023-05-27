@@ -9,7 +9,7 @@ const FooterComponent = styled.footer`
   justify-content: center;
   flex: auto;
   height: auto;
-  background-color:rgb(97 93 133 / 10%);
+  background-color: #211F2E;
   box-shadow: rgba(0, 0, 0, 0.24) 3px 0px 8px;
   form {
     display: flex;

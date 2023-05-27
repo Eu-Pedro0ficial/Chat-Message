@@ -2,13 +2,25 @@ import { Idb } from "../interfaces/Idb";
 
 const db : Idb[] = [
   {
-    name: "pedro",
-    id: "888",
+    name: "Pedro",
+    id: "1",
     password: "123"
+  },
+  {
+    name: "Arthur",
+    id: "2",
+    password: "123"
+  },
+  {
+    name: "admin",
+    id: "3",
+    password: "admin"
   }
 ]
 
 export const createUser = (user: any) => db.push(user)
+
+export const getUsers = () => db;
 
 export const getUser = (data:any) => {
   const loginFieldName = data.name;

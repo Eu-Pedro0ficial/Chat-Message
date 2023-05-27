@@ -25,9 +25,12 @@ io.on("connection", (socket) => {
         (0, databaseLoca_1.createUser)(data);
         io.emit("created User", true);
     });
+    socket.on("getUsers", () => {
+        const getAllUsers = (0, databaseLoca_1.getUsers)();
+        io.emit("getUsers", getAllUsers);
+    });
     socket.on("getUser", (data) => {
         const getUserFilter = (0, databaseLoca_1.getUser)(data);
-        console.log(getUserFilter, data);
         if (getUserFilter) {
             io.emit("getUser", getUserFilter);
             return;
