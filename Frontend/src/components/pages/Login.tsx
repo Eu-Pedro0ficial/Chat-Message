@@ -3,83 +3,127 @@ import { styled } from "styled-components";
 import { connectionIo } from "../../config/connection";
 import { useNavigate } from "react-router-dom";
 
-const LoginComponent = styled.div `
-  display: flex;
-  flex-direction: column;
+const LoginComponent = styled.div`
+ display: flex;
   justify-content: center;
   align-items: center;
+  width: 100vw;
+  height: 100vh;
 
-  width: 40%;
-  border-radius: 10px;
-  padding: 20px;
-
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-
-  color: #f8f8f8;
-
-  h1{
-    padding: 20px;
-    color: #633BBC;
-    font-size: 2.4rem;
-  }
-
-  h1:hover{
-    color: #f8f8f8;
-  }
-
-  form{
+  .component{
     display: flex;
-    align-items: center;
     flex-direction: column;
-    gap: 20px;
-
-    width: 100%;
-
-    .input-group{
+    justify-content: center;
+    align-items: center;
+    width:400px;
+    height: auto;
+    padding: 1rem;
+    background: #211F2E;
+    .sub-component{
       display: flex;
+      justify-content: center;
+      align-items: center;
       flex-direction: column;
-      width: 80%;
-      label{
-        font-size: 1.5rem;
+      width: 100%;
+      padding: 1rem;
+      background: #1A1924;
+      border: 1px solid #633BBC;
+      .title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        padding: 1rem;
+        h1{
+          font-family: 'Roboto';
+          font-style: normal;
+          font-weight: 600;
+          font-size: 15px;
+          line-height: 23px;
+          text-transform: uppercase;
+          opacity: .9;
+            color: #FFFFFF;
+
+        }
       }
-      input{
-        border: 0;
-        outline: 0;
+    
+    
+      form{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 1.3rem;
         width: 100%;
-        border-radius: 9999px;
-        height: 50px;
-        background-color: #f8f8f8;
-        padding: 10px;
+        padding: 1rem;
+        .input-group{
+          display: flex;
+          align-items: start;
+          flex-direction: column;
+          width: 100%;
+          label{
+            font-family: 'DM Sans';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 26px;
+            text-align: center;
+            color: #FFFFFF;
+          }
+          input{
+            border: 0;
+            outline: 0;
+            width: 100%;
+            border-radius:3px;
+            height: 40px;
+            background-color: #211F2E;
+            border: 1px solid #633BBC;
+            padding: 10px;
+            font-family: 'DM Sans';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 26px;
+        
+            color: #FFFFFF;
+          }
+        }
+        button {
+          width: 100%;
+          height: 37px;
+          border: none;
+          background-color: #1A1924;
+          border: 1px solid #633BBC;
+          transition: all 1s ease-in-out;
+          border-radius: 5px;
+     
+          font-family: 'DM Sans';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 26px;
+          text-align: center;
+          text-transform: uppercase;
+          color: #FFFFFF;
+          opacity: .9;
+    
+          &:hover {
+            width: 70%;
+            background-color: #633BBC;
+            transition: all 0.6s ease-in-out;
+          }
+        }
       }
-    }
-    button{
-      outline: 0;
-      border: 0;
-      width: 80%;
-      height: 50px;
-      background-color: #633BBC;
-      color: #f8f8f8;
-      border-radius: 9999px;
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-    button:hover{
-      filter: brightness(0.9);
-      color: black;
     }
   }
 `;
 
-export default function Login(){
+export default function Login() {
 
   const navigate = useNavigate();
   const [inputName, setInputName] = useState('');
   const [inputPassword, setInputPassword] = useState('');
-  
-  function handleSubmit(e:any){
+
+  function handleSubmit(e: any) {
     e.preventDefault();
 
     const formData = {
@@ -90,8 +134,8 @@ export default function Login(){
     connectionIo.emit("getUser", formData)
 
     connectionIo.on("getUser", (data) => {
-      if(data){
-        localStorage.setItem("user", JSON.stringify({...data, "isLogged": true}));
+      if (data) {
+        localStorage.setItem("user", JSON.stringify({ ...data, "isLogged": true }));
         navigate('/Chat')
       }
     })
@@ -99,19 +143,26 @@ export default function Login(){
 
   return (
     <LoginComponent>
-      <h1>Login</h1>
+      <div className="component">
+        <div className="sub-component">
+          <div className="title">
 
-      <form onSubmit={handleSubmit}>
-        <div className='input-group'>
-          <label htmlFor="name">Nome</label>
-          <input type="text" name='name' value={inputName || ''} onChange={(e) => setInputName(e.target.value)}  placeholder="digite seu nome"/>
+            <h1>Login</h1>
+          </div>
+
+          <form onSubmit={handleSubmit}>
+            <div className='input-group'>
+              <label htmlFor="name">Nome</label>
+              <input type="text" name='name' value={inputName || ''} onChange={(e) => setInputName(e.target.value)} placeholder="digite seu nome" />
+            </div>
+            <div className='input-group'>
+              <label htmlFor="password">Senha</label>
+              <input type="password" name='password' value={inputPassword || ''} onChange={(e) => setInputPassword(e.target.value)} placeholder="digite seu nome" />
+            </div>
+            <button>Login</button>
+          </form>
         </div>
-        <div className='input-group'>
-          <label htmlFor="password">Senha</label>
-          <input type="password" name='password' value={inputPassword || ''} onChange={(e) => setInputPassword(e.target.value)}  placeholder="digite seu nome"/>
-        </div>
-        <button>Login</button>
-      </form>
+      </div>
     </LoginComponent>
   )
 }

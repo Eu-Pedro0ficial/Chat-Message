@@ -1,82 +1,140 @@
-import { styled } from "styled-components"
+import { keyframes, styled } from "styled-components"
 import { Link } from "react-router-dom";
 
-const HomeComponent = styled.main `
+
+const animFrames = keyframes`
+
+ 50% {
+  transform: scale(1.1);
+ }
+ 100% {
+  transform: scale(0.9);
+ }
+
+`
+
+
+const HomeComponent = styled.main`
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
 
-  width: 50vw;
-  height: 60vh;
-
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-family: sans-serif;
-  background-color: #211F2E;
-  box-shadow: rgba(0, 0, 0, 0.385) 0px 20px 30px -10px;
-  border-radius: 3px;
-  h1{
-    font-weight: bold;
-    height: 10%;
+  padding: 2rem;
+  .flex  {
     display: flex;
-    gap: 10px;
-    align-items: center;
-    padding-left: 2.4rem;
-    font-size: 2.4rem;
-    color: #f8f8f8;
-    span{
-      color: #633BBC;
-    }
-  }
+    flex-direction: column;
+    gap: 1rem;
+      width: 700px;
+      height: auto;
+      background-color: #211F2E;
+      padding: 2rem;
+      .title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.7rem;
+        height: auto; 
 
-  p{
-    text-indent: 2.4rem;
-    width: 100%;
-    padding: 0 2.4rem;
-    color: #f8f8f8;
-  }
+        h1 {
+          font-family: 'Roboto';
+          font-style: normal;
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 23px;
+          text-transform: uppercase;
+          color: #FFFFFF;
+          span {
+            color: #633BBC;
+          }
+        }
+      }
 
-  div {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 20px;
-    padding-right: 3rem;
+      .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        background: #1A1924;
+        border: 1px solid #633BBC;
 
-    a{
-      background-color: #633BBC;
-      color: #f8f8f8;
-      outline: 0;
-      border: 0;
-      padding: 1.4rem 2.4rem;
-      border-radius: 9999px;
-      font-size: 1.0rem;
-      text-decoration: none;
-    }
+        p {
+          font-family: 'DM Sans';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 15px;
+          line-height: 26px;
+          text-align: center;
+          opacity: .9;
+          color: #FFFFFF;
 
-    a:hover{
-      color: #211F2E;
-    }
+        }
+      
+      }
+      .footer{
+        display: flex;
+        gap: 0.7rem;
+        justify-content: end;
+        flex: 1;
+        height: 100%;
+        margin-right: 2rem;
+        transition: all 1s ease-in-out;
+        button {
+          width: 123px;
+          height: 37px;
+          border: none;
+          background-color: #1A1924;
+          border: 1px solid #633BBC;
+          transition: all 1s ease-in-out;
+          border-radius: 5px;
+          
+          a {
+            text-decoration: none;
+            font-family: 'DM Sans';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 26px;
+            text-align: center;
+            text-transform: uppercase;
+            color: #FFFFFF;
+            opacity: .9;
+          }
+          &:hover {
+            background-color: #633BBC;
+            transition: all 0.6s ease-in-out;
+            animation: ${animFrames} 0.6s ;
+         
+
+            transform: scale(0.9);
+          }
+        }
+      }
   }
 `;
 
-export default function Home(){
+export default function Home() {
   return (
     <HomeComponent>
-      <h1>Chat <span>Message</span></h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae est tempora aliquam, sint vitae amet nulla totam unde? Nihil iste natus veritatis ea incidunt quo fugit reprehenderit a magni et!
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint fuga sed illo nam. Minus, dolor? Ipsam necessitatibus pariatur consequatur expedita impedit quisquam quia, nulla odio explicabo tempore earum consectetur officiis!
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi quibusdam laudantium eos dolorem eligendi, fuga doloremque tenetur aperiam esse voluptatibus! Rerum, suscipit fugit. Nobis quos aliquid fugit, earum sed consequuntur!
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, odio. Libero eaque repellat similique blanditiis. Fugiat voluptatem cumque, qui mollitia itaque dolore iste quam laborum quasi, nam repellat inventore a.
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam ipsam quae magni, corporis provident architecto sint natus voluptatum commodi qui ad eaque inventore ex enim pariatur excepturi est iusto rerum!
-      </p>
-      <div>
-        <Link to="/Register">Register</Link>
-        <Link to="/Login">Login</Link>
+      <div className="flex">
+        <div className="title">
+
+          <h1>Chat <span>Message</span></h1>
+        </div>
+
+        <div className="content">
+
+          <p>
+            Um chat message, ou mensagem de chat, é uma unidade de comunicação em tempo real trocada entre usuários em um ambiente de chat ou mensagens instantâneas. Essas mensagens são amplamente utilizadas em plataformas de bate-papo online, aplicativos de mensagens, redes sociais e até mesmo em sistemas de suporte ao cliente.</p>
+          <div>
+          </div>
+
+        </div>
+        <div className="footer">
+          <button><Link to="/Register">Register</Link></button>
+          <button><Link to="/Login">Login</Link></button>
+        </div>
       </div>
     </HomeComponent>
   )
