@@ -106,7 +106,6 @@ export function TextInput() {
             <PaperPlaneRight weight="fill" />
           </button>
         </div>
-
       </form>
     </FooterComponent>
   )

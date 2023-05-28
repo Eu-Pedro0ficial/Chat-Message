@@ -42,9 +42,13 @@ io.on("connection", (socket: Socket) => {
   });
 
   socket.on("creatingRoomWithFilteredUser",(data:any) => {
-    socket.join(`${data.user.id}/${data.otherUser.id}`);
-
-    io.emit("creted room with user", `${data.user.id}/${data.otherUser.id}`)
+    socket.join(`${data.userLogged.id}/${data.otherUser.id}`);
+    io.emit("creted room with user", `${data.userLogged.id}/${data.otherUser.id}`)
+  })
+  
+  socket.on("setMessage", (data:any) => {
+    
+    io.to(`${data.userLogged.id}/${data.otherUser.id}`).emit("getMessage", data);
   })
 
   socket.on("disconnect", () => {

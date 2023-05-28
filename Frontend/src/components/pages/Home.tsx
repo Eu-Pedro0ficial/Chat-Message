@@ -32,8 +32,9 @@ const HomeComponent = styled.main `
   }
 
   p{
+    text-indent: 2.4rem;
     width: 100%;
-    padding-left: 2.4rem;
+    padding: 0 2.4rem;
     color: #f8f8f8;
   }
 

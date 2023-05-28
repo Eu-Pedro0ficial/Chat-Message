@@ -103,8 +103,6 @@ export default function ListOfRooms(){
   const [users, setUsers] = useState<Idb[]>([]);
   const [filterUsers, setFilterUsers] = useState<Idb[]>([]);
   const [search, setSearch] = useState('');
-  const [otherUser, setOtherUser] = useState<Idb>();
-  const [userLoggedNow, setUserLoggedNow] = useState("");
   
   useEffect(()=>{
     connectionIo.emit("getUsers");
@@ -120,18 +118,27 @@ export default function ListOfRooms(){
   }
 
   function handleClick(e:any){
-    const userJson = localStorage.getItem('user');
-    const userLogged = userJson ? JSON.parse(userJson) : null;
-    setUserLoggedNow(userLogged);
-
+    
     const userNameContact = e.target.textContent;
     users.map((user) => {
       if(user.name === userNameContact){
-        setOtherUser(user)
+        const userJson = localStorage.getItem('user');
+        const userLoggedArray = userJson ? JSON.parse(userJson) : null;
+        const userLogged = userLoggedArray[0];
+
+        const otherUser = user;
+
+        connectionIo.emit('creatingRoomWithFilteredUser', {otherUser, userLogged});
+        connectionIo.on("creted room with user", (data) => {
+          console.log(data);
+          if(data){
+            localStorage.setItem("otherUser", JSON.stringify(otherUser));
+          }
+        })
+
       }
     });
     
-    console.log(otherUser, userLoggedNow);
   }
 
   return (

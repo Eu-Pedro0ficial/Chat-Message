@@ -91,7 +91,7 @@ export default function Login(){
 
     connectionIo.on("getUser", (data) => {
       if(data){
-        localStorage.setItem("user", JSON.stringify({...formData, "isLogged": true}));
+        localStorage.setItem("user", JSON.stringify({...data, "isLogged": true}));
         navigate('/Chat')
       }
     })

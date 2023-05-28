@@ -82,12 +82,11 @@ const HeaderComponent = styled.header`
 export function UserInformations() {
 
   const navitage = useNavigate();
-  const [name, setName] = useState();
-
+  const [name, setName] = useState("");
   
   useEffect(()=>{
-    const jsonFormData = localStorage.getItem('user');
-    const formData = JSON.parse(jsonFormData!)
+    const jsonFormData = localStorage.getItem('otherUser');
+    const formData = jsonFormData ? JSON.parse(jsonFormData!) : "";
     setName(formData.name)
   }, [])
 

@@ -38,8 +38,11 @@ io.on("connection", (socket) => {
         return io.emit("getUser", "Usuario não encontrado");
     });
     socket.on("creatingRoomWithFilteredUser", (data) => {
-        socket.join(`${data.user.id}/${data.otherUser.id}`);
-        io.emit("creted room with user", `${data.user.id}/${data.otherUser.id}`);
+        socket.join(`${data.userLogged.id}/${data.otherUser.id}`);
+        io.emit("creted room with user", `${data.userLogged.id}/${data.otherUser.id}`);
+    });
+    socket.on("setMessage", (data) => {
+        io.to(`${data.userLogged.id}/${data.otherUser.id}`).emit("getMessage", data);
     });
     socket.on("disconnect", () => {
         console.log("A client disconnected");
