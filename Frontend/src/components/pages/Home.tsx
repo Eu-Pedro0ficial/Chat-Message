@@ -1,6 +1,6 @@
 import { keyframes, styled } from "styled-components"
 import { Link } from "react-router-dom";
-
+import { connectionIo } from "../../config/connection";
 
 const animFrames = keyframes`
 
@@ -13,14 +13,12 @@ const animFrames = keyframes`
 
 `
 
-
 const HomeComponent = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
   height: 100vh;
-
   padding: 2rem;
   .flex  {
     display: flex;
@@ -77,12 +75,13 @@ const HomeComponent = styled.main`
         gap: 0.7rem;
         justify-content: end;
         flex: 1;
+        width: 100%;
         height: 100%;
         margin-right: 2rem;
         transition: all 1s ease-in-out;
         button {
-          width: 123px;
-          height: 37px;
+          width: 150px;
+          height: 50px;
           border: none;
           background-color: #1A1924;
           border: 1px solid #633BBC;
@@ -115,25 +114,29 @@ const HomeComponent = styled.main`
 `;
 
 export default function Home() {
+
+  function handleClick(){
+    connectionIo.emit("create user");
+    connectionIo.on("create user", (data)=>{
+      localStorage.setItem(`id:${data}`, `${data}`);
+    })
+  }
+
   return (
     <HomeComponent>
       <div className="flex">
         <div className="title">
-
           <h1>Chat <span>Message</span></h1>
         </div>
-
         <div className="content">
-
-          <p>
-            Um chat message, ou mensagem de chat, é uma unidade de comunicação em tempo real trocada entre usuários em um ambiente de chat ou mensagens instantâneas. Essas mensagens são amplamente utilizadas em plataformas de bate-papo online, aplicativos de mensagens, redes sociais e até mesmo em sistemas de suporte ao cliente.</p>
+            <p>
+              Um chat message, ou mensagem de chat, é uma unidade de comunicação em tempo real trocada entre usuários em um ambiente de chat ou mensagens instantâneas. Essas mensagens são amplamente utilizadas em plataformas de bate-papo online, aplicativos de mensagens, redes sociais e até mesmo em sistemas de suporte ao cliente.
+            </p>
           <div>
           </div>
-
         </div>
         <div className="footer">
-          <button><Link to="/Register">Register</Link></button>
-          <button><Link to="/Login">Login</Link></button>
+          <button onClick={handleClick}><Link to="/Chat">Start Chat</Link></button>
         </div>
       </div>
     </HomeComponent>

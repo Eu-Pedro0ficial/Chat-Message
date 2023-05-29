@@ -1,7 +1,5 @@
 import { styled } from "styled-components"
-import { SignOut, UserCircle } from "phosphor-react"
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { UserCircle } from "phosphor-react"
 
 const HeaderComponent = styled.header`
   display: flex;
@@ -64,36 +62,11 @@ const HeaderComponent = styled.header`
         }
       }
     } 
-    .logOut {
-      display: flex;
-      justify-content: end;
-      flex: 1;
-      svg {
-        width: 2.5rem;
-        height: 2.5rem;
-        color: white;
-        cursor: pointer;
-      }
-    }
     }
 
 `
 
 export function UserInformations() {
-
-  const navitage = useNavigate();
-  const [name, setName] = useState("");
-  
-  useEffect(()=>{
-    const jsonFormData = localStorage.getItem('otherUser');
-    const formData = jsonFormData ? JSON.parse(jsonFormData!) : "";
-    setName(formData.name)
-  }, [])
-
-  function handleClick(){
-    localStorage.removeItem("user");
-    navitage('/Login');
-  }
 
   return (
     <HeaderComponent>
@@ -101,12 +74,9 @@ export function UserInformations() {
         <div className="informations">
           <UserCircle weight="fill" />
           <div className="names">
-            <span>{name}</span>
+            <span>Global Chat</span>
             <p><span />Online</p>
           </div>
-        </div>
-        <div onClick={handleClick} className="logOut">
-          <SignOut />
         </div>
       </div>
     </HeaderComponent>

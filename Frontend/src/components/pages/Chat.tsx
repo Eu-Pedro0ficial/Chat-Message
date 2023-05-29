@@ -1,31 +1,79 @@
-import { useEffect, useState } from "react";
-import ListOfRooms from "../ListOfRooms";
-import Room from "../Room";
 import { styled } from "styled-components";
+import { UserInformations } from '../UserInformations';
+import { Message } from '../Message';
+import { TextInput } from '../TextInput';
+import { useEffect, useState } from "react";
+import { connectionIo } from "../../config/connection";
 
-const ContainerComponent = styled.main `
+const MainComponents = styled.main`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100vw;
   height: 100vh;
 
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.8rem 2rem;
+    width: 100%;
+    height: 70%;
+    overflow: auto;
+    position: relative;
+
+  }
 `;
 
-export default function Chat(){
+export interface IObjectMessage {
+  message:string;
+  user:string;
+  time:string;
+}
 
-  const [otherUser, setOtherUser] = useState();
+interface IData {
+  message :string;
+  user:string;
+  time:string;
+  id:number
+}
+
+export default function Chat(){
+  
+  const [messages, setMessages] = useState<IObjectMessage[]>([]);
+
+  const handleChatMessage = (res: IData) => {
+    const userIdJSON = localStorage.getItem(`id:${res.id}`)
+    const userId = userIdJSON ? JSON.parse(userIdJSON) : null;
+    console.log(userId);
+    if(userId &&res.id === userId){
+      res.user = "user";
+      setMessages((data: IObjectMessage | any):IObjectMessage[] => [...data, res]);
+      return;
+    }
+    setMessages((data: IObjectMessage | any):IObjectMessage[] => [...data, res]);
+  };
 
   useEffect(()=>{
-    const otherUserJson = localStorage.getItem("otherUser");
-    setOtherUser(otherUserJson ? JSON.parse(otherUserJson) : null);
+    connectionIo.on("chat message", handleChatMessage);
+    return () => {
+      connectionIo.off("chat message");
+    };
   }, [])
 
   return (
-    <ContainerComponent>
-      <ListOfRooms />
-      {
-        otherUser && <Room />
-      }
-    </ContainerComponent>
+    <MainComponents>
+      <UserInformations />
+      <main>
+        {
+          messages.length > 0 &&
+          messages.map(message => (
+            <Message key={message.message} content={message.message} time={message.time} styled={message.user} />
+          ))
+        }
+      </main>
+      <TextInput />
+    </MainComponents>
   )
 
 }

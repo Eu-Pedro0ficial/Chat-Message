@@ -1,12 +1,5 @@
 import { styled } from "styled-components";
 
-interface IMessage {
-  content: string
-  styled?: string
-  time: string
-
-}
-
 const MessageComponent = styled.div `
   display: flex;
   flex-direction: column;
@@ -55,13 +48,20 @@ const MessageComponent = styled.div `
   }
 `
 
+interface IMessage {
+  content: string
+  styled?: string
+  time: string
+
+}
+
 export function Message(props:IMessage){
 
   return (
     <MessageComponent>
       <div className={`${props.styled}`}>
         <div className="box">
-          Cecília - {props.time}
+          Anonimo - {props.time}
         </div>
         <div className="paragraph">
           {props.content}
@@ -69,5 +69,4 @@ export function Message(props:IMessage){
       </div>
     </MessageComponent>
   )
-
 }

@@ -1,7 +1,6 @@
 import express from "express";
 import { Server, Socket } from "socket.io";
 import cors from "cors";
-import { createUser, getUser, getUsers } from "./db/databaseLoca";
 
 const app = express();
 
@@ -20,38 +19,17 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket: Socket) => {
-
-  socket.on("createUser", (data: any) => {
-    createUser(data);
-    io.emit("created User", true);
-  });
-
-  socket.on("getUsers", () => {
-    const getAllUsers = getUsers();
-    io.emit("getUsers", getAllUsers);
-  })
   
-  socket.on("getUser", (data: any) => {
-    const getUserFilter =  getUser(data);
-
-    if(getUserFilter){
-      io.emit("getUser", getUserFilter);
-      return;
-    }
-    return io.emit("getUser","Usuario não encontrado")
-  });
-
-  socket.on("creatingRoomWithFilteredUser",(data:any) => {
-    socket.join(`${data.userLogged.id}/${data.otherUser.id}`);
-    io.emit("creted room with user", `${data.userLogged.id}/${data.otherUser.id}`)
-  })
-  
-  socket.on("setMessage", (data:any) => {
-    
-    io.to(`${data.userLogged.id}/${data.otherUser.id}`).emit("getMessage", data);
+  socket.on("chat message", (data):void =>{
+    data = {...data, "id": socket.handshake.issued}
+    io.emit("chat message", data);
   })
 
-  socket.on("disconnect", () => {
+  socket.on("create user", ():void =>{
+    io.emit("create user", socket.handshake.issued);
+  })
+
+  socket.on("disconnect", ():void => {
     console.log("A client disconnected");
   });
 });

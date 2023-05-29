@@ -1,7 +1,8 @@
 import { styled } from "styled-components";
-import { useEffect, useState } from "react";
-import { useContextMessage } from "../context/useMessage";
+import { FormEvent, useState } from "react";
 import { PaperPlaneRight } from "phosphor-react";
+import { connectionIo } from "../config/connection";
+import { IObjectMessage } from "./pages/Chat";
 
 const FooterComponent = styled.footer`
   display: flex;
@@ -64,13 +65,6 @@ export function TextInput() {
 
   const date = new Date;
   const [input, setInput] = useState<string>("")
-  const [valueInput, setValue] = useState<string>()
-  const [objectMessage, setObjectMessage] = useState<any>({
-    message: "",
-    user: "",
-    time: ""
-  })
-  const { data } = useContextMessage()
 
   function getHout(){
     return date.getHours();
@@ -80,28 +74,25 @@ export function TextInput() {
     return date.getMinutes();
   }
 
-  
-  function handleSubmit(e : any) {
+  function handleSubmit(e : FormEvent) {
     e.preventDefault()
-    setValue(input)
-    setObjectMessage({
+    if(input === ""){
+      return;
+    }
+    const objectMessage:IObjectMessage = {
       message : input,
-      user: "user",
+      user: "",
       time: `${getHout()}:${getMinutes()}`
-    })
+    }
+    connectionIo.emit("chat message", objectMessage);
+    setInput("");
   }
-  
-  useEffect(() => {
-    data.setMessage([...data.message,objectMessage]);
-    setInput("")
-  }, [valueInput])
 
- 
   return (
     <FooterComponent>
       <form onSubmit={handleSubmit}>
         <div className="div">
-          <input type="text" value={input || ""} onChange={(e: any) => setInput(e.target.value)} placeholder="Digite sua mensagem" />
+          <input type="text" value={input || ""} onChange={(e:React.ChangeEvent<HTMLInputElement>):void => setInput(e.target.value)} placeholder="Digite sua mensagem" />
           <button type="submit">
             <PaperPlaneRight weight="fill" />
           </button>
