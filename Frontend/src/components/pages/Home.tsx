@@ -136,7 +136,7 @@ export default function Home() {
           </div>
         </div>
         <div className="footer">
-          <button onClick={handleClick}><Link to="/Chat">Start Chat</Link></button>
+          <button onClick={handleClick}><Link to="/Chat">Iniciar Chat</Link></button>
         </div>
       </div>
     </HomeComponent>
