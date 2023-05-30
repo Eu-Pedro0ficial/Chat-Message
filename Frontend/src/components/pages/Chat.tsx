@@ -71,7 +71,7 @@ export default function Chat() {
 
             {
               messages.map(message => (
-                <Message key={message.message} content={message.message} time={message.time} styled={""} />
+                <Message key={message.message} content={message.message} time={message.time} styled={message.user} />
               ))
 
             }

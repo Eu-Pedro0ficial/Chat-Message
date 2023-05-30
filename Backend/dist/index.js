@@ -20,6 +20,7 @@ const io = new socket_io_1.Server(server, {
     },
 });
 io.on("connection", (socket) => {
+    console.log(socket.id);
     socket.on("chat message", (data) => {
         data = { ...data, "id": socket.handshake.issued };
         io.emit("chat message", data);

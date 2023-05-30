@@ -4,14 +4,26 @@ import { connectionIo } from "../../config/connection";
 
 const animFrames = keyframes`
 
- 50% {
-  transform: scale(1.1);
- }
- 100% {
-  transform: scale(0.9);
- }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(0.9);
+  }
 
 `
+
+const animHome = keyframes`
+
+  0% {
+    transform: scale(0) rotate(0deg);
+  }
+
+ 100% {
+    transform: scale(1) rotate(360deg);
+  }
+`
+
 
 const HomeComponent = styled.main`
   display: flex;
@@ -24,9 +36,14 @@ const HomeComponent = styled.main`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-      width: 700px;
-      height: auto;
-      padding: 2rem;
+    width: 700px;
+    background-color: rgba(25, 23, 35, 1);
+    box-shadow: 2px 4px 4px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    transition: all 0.6s;
+    animation: ${animHome} 1.3s ease-in-out;
+    height: auto;
+    padding: 2rem;
       .title {
         display: flex;
         justify-content: center;

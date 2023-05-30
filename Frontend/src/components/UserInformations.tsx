@@ -73,7 +73,7 @@ export function UserInformations() {
           </div>
         </div>
       </div>
-    
+
     </HeaderComponent>
   )
 }

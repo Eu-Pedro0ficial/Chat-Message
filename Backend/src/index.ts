@@ -19,7 +19,7 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket: Socket) => {
-  
+  console.log(socket.id)
   socket.on("chat message", (data):void =>{
     data = {...data, "id": socket.handshake.issued}
     io.emit("chat message", data);
