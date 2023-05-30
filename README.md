@@ -47,3 +47,5 @@ Users must be able to:
 - Instagram - [ohpedro0ficial](https://instagram.com/ohpedro0ficial?igshid=ZDdkNTZiNTM=)
 - Arthur santos
 - Github - [@fx987](https://github.com/fx987)
+
+## consult the "package.json" file to run the project
