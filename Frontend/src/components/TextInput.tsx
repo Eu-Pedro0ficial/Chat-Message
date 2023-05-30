@@ -32,20 +32,21 @@ const FooterComponent = styled.footer`
         padding-right: 70px;
         min-width: 230px;
         width: 100%;
-        border-radius: 70px;
+        border-radius: 5px;
         color: white;
         font-size: 1.0rem; 
+        border: 1px solid #633BBC;
         font-family: 'Roboto';
         font-style: normal;
         font-weight: 400;
-        font-size: 12px;
+        font-size: 13px;
         line-height: 14px;
         color: #E1E1E6;
         &::placeholder{
           font-family: 'Roboto';
           font-style: normal;
           font-weight: 400;
-          font-size: 12px;
+          font-size: 13px;
           line-height: 14px;
           color: #E1E1E6;
         }
