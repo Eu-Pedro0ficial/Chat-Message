@@ -15,12 +15,7 @@ const animSend = keyframes`
 
 `
 
-
-interface LoadingProps {
-    isTimer: number;
-}
-
-const LoadingComponent = styled.div<LoadingProps>`
+const LoadingComponent = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,7 +39,7 @@ const LoadingComponent = styled.div<LoadingProps>`
             svg:nth-child(1) {
                 position: relative;
                 left:95%;
-                animation: ${animSend} ${props => props.isTimer}s linear infinite;
+                animation: ${animSend} 10s linear infinite;
                 
             }
             svg:nth-child(2) {
@@ -77,7 +72,7 @@ const LoadingComponent = styled.div<LoadingProps>`
 export default function Loading(){
 
   return (
-    <LoadingComponent isTimer={10}>
+    <LoadingComponent>
       <div className="content">
           <div className="header-loading">
               <PaperPlaneRight size={29} color="#633BBC"/>
