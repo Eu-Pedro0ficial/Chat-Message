@@ -4,6 +4,7 @@ import { Message } from '../Message';
 import { TextInput } from '../TextInput';
 import { useEffect, useState } from "react";
 import { connectionIo } from "../../config/connection";
+import Loading from "../Loading";
 
 const MainComponents = styled.main`
   display: flex;
@@ -41,6 +42,7 @@ interface IData {
 export default function Chat() {
 
   const [messages, setMessages] = useState<IObjectMessage[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleChatMessage = (res: IData) => {
     const userIdJSON = localStorage.getItem(`id:${res.id}`)
@@ -54,6 +56,10 @@ export default function Chat() {
     setMessages((data: IObjectMessage | any): IObjectMessage[] => [...data, res]);
   };
 
+  setTimeout(()=>{
+    setIsLoading(false);
+  }, 10000)
+
   useEffect(() => {
     connectionIo.on("chat message", handleChatMessage);
     return () => {
@@ -62,26 +68,31 @@ export default function Chat() {
   }, [])
 
   return (
-    <MainComponents>
-      <UserInformations />
-      <main>
-        {
-          messages.length > 0 && <>
+    <>
+      {
+        isLoading ?
+        <Loading /> :
+        <MainComponents>
+        <UserInformations />
+        <main>
+          {
+            messages.length > 0 && 
+            <>
+              {
+                messages.map(message => (
+                  <Message key={message.message} content={message.message} time={message.time} styled={message.user} />
+                ))
 
+              }
+            </>
+          }
+        </main>
+        <TextInput />
+      </MainComponents>
+      }
+    </>
 
-            {
-              messages.map(message => (
-                <Message key={message.message} content={message.message} time={message.time} styled={message.user} />
-              ))
-
-            }
-
-          </>
-
-        }
-      </main>
-      <TextInput />
-    </MainComponents>
+    
   )
 
 }
