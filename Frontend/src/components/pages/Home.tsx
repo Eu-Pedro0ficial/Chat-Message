@@ -26,7 +26,6 @@ const HomeComponent = styled.main`
     gap: 1rem;
       width: 700px;
       height: auto;
-      background-color: #211F2E;
       padding: 2rem;
       .title {
         display: flex;
@@ -104,8 +103,6 @@ const HomeComponent = styled.main`
             background-color: #633BBC;
             transition: all 0.6s ease-in-out;
             animation: ${animFrames} 0.6s ;
-         
-
             transform: scale(0.9);
           }
         }
@@ -115,9 +112,10 @@ const HomeComponent = styled.main`
 
 export default function Home() {
 
-  function handleClick(){
+  function handleClick() {
     connectionIo.emit("create user");
-    connectionIo.on("create user", (data)=>{
+    connectionIo.on("create user", (data) => {
+      console.log(data);
       localStorage.setItem(`id:${data}`, `${data}`);
     })
   }
@@ -129,9 +127,9 @@ export default function Home() {
           <h1>Chat <span>Message</span></h1>
         </div>
         <div className="content">
-            <p>
-              Um chat message, ou mensagem de chat, é uma unidade de comunicação em tempo real trocada entre usuários em um ambiente de chat ou mensagens instantâneas. Essas mensagens são amplamente utilizadas em plataformas de bate-papo online, aplicativos de mensagens, redes sociais e até mesmo em sistemas de suporte ao cliente.
-            </p>
+          <p>
+            Um chat message, ou mensagem de chat, é uma unidade de comunicação em tempo real trocada entre usuários em um ambiente de chat ou mensagens instantâneas. Essas mensagens são amplamente utilizadas em plataformas de bate-papo online, aplicativos de mensagens, redes sociais e até mesmo em sistemas de suporte ao cliente.
+          </p>
           <div>
           </div>
         </div>

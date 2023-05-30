@@ -7,9 +7,6 @@ const HeaderComponent = styled.header`
   justify-content: center;
   flex: 2;
   padding: 0.5rem;
-  
-  background-color: #211F2E;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   .header-container{
     display: flex;
     align-items: center;
@@ -29,8 +26,6 @@ const HeaderComponent = styled.header`
         display: flex;
         flex-direction: column;
         margin: 0 0.6rem;
-        
-
 
         span {
           display: flex;
@@ -62,8 +57,7 @@ const HeaderComponent = styled.header`
         }
       }
     } 
-    }
-
+  }
 `
 
 export function UserInformations() {
@@ -79,6 +73,7 @@ export function UserInformations() {
           </div>
         </div>
       </div>
+    
     </HeaderComponent>
   )
 }

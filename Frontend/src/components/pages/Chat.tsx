@@ -26,35 +26,35 @@ const MainComponents = styled.main`
 `;
 
 export interface IObjectMessage {
-  message:string;
-  user:string;
-  time:string;
+  message: string;
+  user: string;
+  time: string;
 }
 
 interface IData {
-  message :string;
-  user:string;
-  time:string;
-  id:number
+  message: string;
+  user: string;
+  time: string;
+  id: number
 }
 
-export default function Chat(){
-  
+export default function Chat() {
+
   const [messages, setMessages] = useState<IObjectMessage[]>([]);
 
   const handleChatMessage = (res: IData) => {
     const userIdJSON = localStorage.getItem(`id:${res.id}`)
     const userId = userIdJSON ? JSON.parse(userIdJSON) : null;
     console.log(userId);
-    if(userId &&res.id === userId){
+    if (userId && res.id === userId) {
       res.user = "user";
-      setMessages((data: IObjectMessage | any):IObjectMessage[] => [...data, res]);
+      setMessages((data: IObjectMessage | any): IObjectMessage[] => [...data, res]);
       return;
     }
-    setMessages((data: IObjectMessage | any):IObjectMessage[] => [...data, res]);
+    setMessages((data: IObjectMessage | any): IObjectMessage[] => [...data, res]);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     connectionIo.on("chat message", handleChatMessage);
     return () => {
       connectionIo.off("chat message");
@@ -66,10 +66,18 @@ export default function Chat(){
       <UserInformations />
       <main>
         {
-          messages.length > 0 &&
-          messages.map(message => (
-            <Message key={message.message} content={message.message} time={message.time} styled={message.user} />
-          ))
+          messages.length > 0 && <>
+
+
+            {
+              messages.map(message => (
+                <Message key={message.message} content={message.message} time={message.time} styled={""} />
+              ))
+
+            }
+
+          </>
+
         }
       </main>
       <TextInput />

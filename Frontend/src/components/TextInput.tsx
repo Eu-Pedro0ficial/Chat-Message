@@ -10,8 +10,6 @@ const FooterComponent = styled.footer`
   justify-content: center;
   flex: auto;
   height: auto;
-  background-color: #211F2E;
-  box-shadow: rgba(0, 0, 0, 0.24) 3px 0px 8px;
   form {
     display: flex;
     justify-content: center;
@@ -29,14 +27,28 @@ const FooterComponent = styled.footer`
       input{
         border: 0;
         outline: 0;
-        background-color: #282843;
+        background: transparent;
         padding: 20px;
         padding-right: 70px;
         min-width: 230px;
         width: 100%;
         border-radius: 70px;
         color: white;
-        font-size: 1.0rem;
+        font-size: 1.0rem; 
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 14px;
+        color: #E1E1E6;
+        &::placeholder{
+          font-family: 'Roboto';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 14px;
+          color: #E1E1E6;
+        }
       }
       button {
         display: flex;
@@ -50,10 +62,11 @@ const FooterComponent = styled.footer`
           position: absolute;
           width: 2.0rem;
           height: 2.0rem;
-          color: white;
+          color: #633BBC;
           margin-right: 2rem;
           object-fit: cover;
           cursor: pointer;
+        
         }
       }
     }
@@ -66,21 +79,21 @@ export function TextInput() {
   const date = new Date;
   const [input, setInput] = useState<string>("")
 
-  function getHout(){
+  function getHout() {
     return date.getHours();
   }
 
-  function getMinutes(){
+  function getMinutes() {
     return date.getMinutes();
   }
 
-  function handleSubmit(e : FormEvent) {
+  function handleSubmit(e: FormEvent) {
     e.preventDefault()
-    if(input === ""){
+    if (input === "") {
       return;
     }
-    const objectMessage:IObjectMessage = {
-      message : input,
+    const objectMessage: IObjectMessage = {
+      message: input,
       user: "",
       time: `${getHout()}:${getMinutes()}`
     }
@@ -92,9 +105,9 @@ export function TextInput() {
     <FooterComponent>
       <form onSubmit={handleSubmit}>
         <div className="div">
-          <input type="text" value={input || ""} onChange={(e:React.ChangeEvent<HTMLInputElement>):void => setInput(e.target.value)} placeholder="Digite sua mensagem" />
+          <input type="text" value={input || ""} onChange={(e: React.ChangeEvent<HTMLInputElement>): void => setInput(e.target.value)} placeholder="Digite sua mensagem" />
           <button type="submit">
-            <PaperPlaneRight weight="fill" />
+            <PaperPlaneRight weight="fill"  />
           </button>
         </div>
       </form>

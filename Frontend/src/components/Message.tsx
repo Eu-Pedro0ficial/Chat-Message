@@ -1,12 +1,13 @@
 import { styled } from "styled-components";
 
-const MessageComponent = styled.div `
+const MessageComponent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   
   .box{
     display: flex;
+    margin-bottom: 0.5rem;
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
@@ -22,7 +23,8 @@ const MessageComponent = styled.div `
     height: auto;
     word-break: break-all;
     padding: 14px;
-    background: #633BBC;
+    background: #1A1924;
+    border: 1px solid #633BBC;
     border-radius: 0px 8px 8px 8px;
     font-family: 'Roboto';
     font-style: normal;
@@ -32,17 +34,16 @@ const MessageComponent = styled.div `
     color: #E1E1E6;
   }
 
-.user{
-  display: flex;
-  align-items: end;
-  flex-direction: column;
-  width: 100%;
-  gap: 0.5rem;
-
+  .user{
+    display: flex;
+    align-items: end;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
 
     .paragraph{
-      
-      background: #07847E;
+      background: #1A1924;
+      border: 1px solid #07847E;
       border-radius: 8px 8px 0px 8px;
     }
   }
@@ -52,10 +53,9 @@ interface IMessage {
   content: string
   styled?: string
   time: string
-
 }
 
-export function Message(props:IMessage){
+export function Message(props: IMessage) {
 
   return (
     <MessageComponent>
